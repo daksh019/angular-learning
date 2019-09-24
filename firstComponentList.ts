@@ -1,28 +1,46 @@
 import { Component } from "@angular/core";
+import { MessageType } from "./IMessageType";
 
+class MessageClass implements MessageType  {
+    firstLine: String;
+    secondLine: String;
+    hide: Boolean;
+
+    constructor (line1: String, line2: String, hidden?:Boolean) {
+        this.firstLine = line1;
+        this.secondLine = line2;
+        this.hide = hidden === true;
+    }
+}
+
+// the template has access to the class variables 
+// of the componenent that its attached to
 @Component({
     selector: 'firstCompList',
     template: `
-        <div class="card card-block" *ngFor="let msg of msgs">
-            <h4 class="card-title"> {{ msg.firstLine }} </h4>
-            <p class="card-text"> {{ msg.secondLine }} </p>
-        </div> 
+        <firstComp *ngFor="let msg of msgs" [message]="msg"> </firstComp>
+        <div>
+            <a class="btn btn-primary" (click)=toggleAll()> Toggle all! </a>
+        </div>
     `
 })
 export class MyFirstComponentList {
-    msgs: Object[];
+    msgs: MessageType[];
 
     constructor(){
-        this.msgs = [{
-            firstLine: "Hello!",
-            secondLine: "This is my first angular app"
-        }, {
-            firstLine: "This is going to get better.",
-            secondLine: "Cause this is just a list repeated for the first time"
-        }, {
-            firstLine: "NG FOR",
-            secondLine: "This is a directive used for the repetition of the compenents in ng"
-        }];
+        this.msgs = [
+            new MessageClass("Hello!", "This is my first angular app", false),
+            new MessageClass("This is going to get better.", "Cause this is just a list repeated for the first time", true),
+            new MessageClass("NG FOR", "This is a directive used for the repetition of the compenents in ng", false)
+        ];
+    }
+    
+    toggleAll () {
+        if(this.msgs.length > 0){
+            this.msgs.forEach((msg) => {
+                msg.hide = !msg.hide;
+            });
+        }
     }
 }
 

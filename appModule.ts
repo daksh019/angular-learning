@@ -7,7 +7,7 @@ import { MyFirstComponentList } from  './firstComponentList';
 @NgModule({
     imports: [BrowserModule],
     declarations: [MyFirstComponent, MyFirstComponentList],
-    bootstrap: [MyFirstComponent, MyFirstComponentList]
+    bootstrap: [ MyFirstComponentList]
 })
 export class AppModule {
 

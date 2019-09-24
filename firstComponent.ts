@@ -4,21 +4,21 @@
 // or defined by the framework using/defining them.
 
 import { Component } from "@angular/core";
+import { MessageType } from "./IMessageType";
+import { Input } from '@angular/core';
 
 @Component({
     selector: 'firstComp', // the selectors will be treated by the angular as valid html tags 
                           // and then replace those tags with the component.  
-    template: `<h1> {{ firstLine }} </h1>
-              <p> {{ secondLine }} </p>`
+    template: `
+        <div class="card card-block">
+            <h4 class="card-title"> {{ message.firstLine }} </h4>
+            <p class="card-text" [hidden]="message.hide"> {{ message.secondLine }} </p>
+        </div> 
+        `
 })
 export class MyFirstComponent {
-    firstLine: string;
-    secondLine: string;
-
-    constructor(){
-        this.firstLine = "Hello!";
-        this.secondLine  = " This is the first component!!!";
-    }
+    @Input('message') message: MessageType;
 }
 
 
