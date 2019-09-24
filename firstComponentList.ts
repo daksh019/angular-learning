@@ -22,6 +22,8 @@ class MessageClass implements MessageType  {
         <div>
             <a class="btn btn-primary" (click)=toggleAll()> Toggle all! </a>
         </div>
+        <createMessageForm (messageEmitter)="addToMessages($event)" (messageRemoveEmitter)="removeMessages($event)"
+        ></createMessageForm>
     `
 })
 export class MyFirstComponentList {
@@ -42,6 +44,17 @@ export class MyFirstComponentList {
             });
         }
     }
+
+    addToMessages(messageEvent: any){
+        console.log("addToMessages is being called");
+        console.log(messageEvent);
+        this.msgs.unshift(messageEvent);
+    }
+
+    removeMessages(){
+        console.log("remove messages called");
+        if(this.msgs.length > 3){
+            this.msgs.shift();
+        }
+    }
 }
-
-
